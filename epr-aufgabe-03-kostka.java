@@ -80,7 +80,7 @@ public class Zinsberechnung {
         
         // Berechnung für ein Jahr.
         euro = betrag * zins / 100;
-        cent = betrag * zins % 100;
+        cent = betrag * zins % 100 * 100;
         
         // Rundung auf volle Cent.
         cent = (cent + 50) / 100;
@@ -92,7 +92,7 @@ public class Zinsberechnung {
         
         // Berechnung für zwei Jahre.
         euro = betrag * zins * zins / 10000;
-        cent = betrag * zins * zins % 10000 / 100;
+        cent = betrag * zins * zins % 10000;
         
         // Rundung auf volle Cent.
         cent = (cent + 50) / 100;
@@ -104,7 +104,7 @@ public class Zinsberechnung {
         
         // Berechnung für drei Jahre.
         euro = betrag * zins * zins * zins / 1000000;
-        cent = betrag * zins * zins * zins % 1000000 / 10000;
+        cent = betrag * zins * zins * zins % 1000000 / 100;
         
         // Rundung auf volle Cent.
         cent = (cent + 50) / 100;
