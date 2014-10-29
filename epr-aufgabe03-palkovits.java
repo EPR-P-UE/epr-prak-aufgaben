@@ -103,7 +103,6 @@ T     */
         System.out.print(',');
         System.out.print(iZehner);
         System.out.println(iEiner);
-        System.out.println(iUebertrag);
         
         /*Dieses System wiederholen wir zunächst für die Berechnung der
             Zinseszinsen für 2 Jahre.
@@ -123,7 +122,6 @@ T     */
         System.out.print(',');
         System.out.print(iZehner);
         System.out.println(iEiner);
-        System.out.println(iUebertrag);
         
         /*Und zu guter letzt noch für 3 Jahre.
         */
@@ -145,6 +143,5 @@ T     */
         System.out.print(',');
         System.out.print(iZehner);
         System.out.println(iEiner);
-        System.out.println(iUebertrag);
     }
 }
