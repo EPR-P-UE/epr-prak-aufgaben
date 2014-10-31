@@ -1,4 +1,4 @@
-/** Author: Rafael Martin
+/** Author: LoB
 * Diese Klasse berechnet Zins und Zinseszins Aufgaben mit Variablen.
 * Nur Ausdrücke vom Typ int sind zulässig
 * Nur Operationen bis einschließlich der Vorlesung vom 24.10.2014 sind zulässig
