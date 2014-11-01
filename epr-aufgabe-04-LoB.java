@@ -22,11 +22,10 @@ public class Stromrechnung {
         double jahresverbrauch; 
         double gesamtkostenTarifEins;
         double gesamtkostenTarifZwei;
-        double gesamtkostenNachKomma;
-        double EndergebnisInEuro;
+        double endergebnisInEuro;
         
         double jahresGrundkosten;
-        double kostenFürVerbrauch;
+        double kostenFuerVerbrauch;
         
         /*
         Danach werden die variablen mti Werten belegt
@@ -43,40 +42,31 @@ public class Stromrechnung {
         /*Hier werden die Grundkosten fürs Jahr berechnet
           Die anschließende Rechnung berechnet die Kosten für den Verbrauch
           Danach werden diese addiert.
+          Um zu runden wird das Ergebnis nach links verschoben.
+          Es wird mit 5 addiert und dann wieder durch 10 geteilt, sodass 
+          Kommastellen entstehen, welche durch die Int-konvertierung wegfallen.
         */
         jahresGrundkosten = ersterTarifEuroProMonat * 12;
-        kostenFürVerbrauch = ersterTarifCentProkWh * jahresverbrauch / 100;
-        gesamtkostenTarifEins = ((jahresGrundkosten + kostenFürVerbrauch) 
-                * 100 + 0.5) / 100;
-        System.out.println("übrerprüfung" + gesamtkostenTarifEins);
-        
-        /*Dies wird für den zweiten tarif wiederholt
+        kostenFuerVerbrauch = ersterTarifCentProkWh * jahresverbrauch / 100;
+        gesamtkostenTarifEins = ((int) (((kostenFuerVerbrauch 
+                + jahresGrundkosten) * 1000) + 5) / 10);
+      
+        /*Dies wird für den zweiten Tarif wiederholt
           und als seperates Ergebnis gepeichert
         */
         jahresGrundkosten = zweiterTarifEuroProMonat * 12;
-        kostenFürVerbrauch = zweiterTarifCentProkWh * jahresverbrauch / 100;
-        gesamtkostenTarifZwei = ((jahresGrundkosten + kostenFürVerbrauch) 
-                * 100 + 0.5) / 100;
-        System.out.println("übrerprüfung" + gesamtkostenTarifZwei);
+        kostenFuerVerbrauch = zweiterTarifCentProkWh * jahresverbrauch / 100;
+        gesamtkostenTarifZwei = ((int) (((kostenFuerVerbrauch 
+                + jahresGrundkosten) * 1000) + 5) / 10); 
         
         /*Anschließend werden die Ausdrücke miteinander verglichen
         Der günstigere/niedrigere soll mit println ausgegeben werden
-        Der Vergleich wird mit einem if/else Ausdruck realisiert
-        Um die Stellen nach der Zweiten abzuschneiden wird das Ergebnis 
-        in zwei Ausdrücke gespalten. Einen Vor und Nachkomma-Teil.
+        Der Vergleich wird mit einem bedingten Ausdruck realisiert.
         */
-        if (gesamtkostenTarifEins < gesamtkostenTarifZwei) {
-            gesamtkostenNachKomma = gesamtkostenTarifEins * 100 % 100;
-            EndergebnisInEuro = gesamtkostenTarifEins + gesamtkostenNachKomma;
-                    
-            System.out.println((int)gesamtkostenTarifEins);
-            System.out.println(',');
-            System.out.println((int)gesamtkostenNachKomma);
-        } else {
-            gesamtkostenNachKomma = gesamtkostenTarifZwei * 100 % 100;
-            System.out.println((int)gesamtkostenTarifZwei);
-            System.out.println(',');
-            System.out.println((int)gesamtkostenNachKomma);   
-        }
+       
+        System.out.println((gesamtkostenTarifEins < gesamtkostenTarifZwei)
+                           ? gesamtkostenTarifEins / 100
+                           : gesamtkostenTarifZwei / 100);
+        
     }
 }
