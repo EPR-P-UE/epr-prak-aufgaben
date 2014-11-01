@@ -10,36 +10,73 @@ public class Stromrechnung {
 
     public static void main(String[] args) {
     /* 
-         
+    Zuerst werden die variablen festgelegt
+    Für jeden Tarif gibt es zwei zur Berechnung des Grund und Verbrauchspreises
+    Außerdem gibt es Variablen um die Rechnung durchzuführen
+    und Zwischenergebnisse zu speichern
     */   
         double ersterTarifEuroProMonat;
-        double ersterTarifEuroProkWh;
-        double zweiterTarifCentProMonat;
+        double ersterTarifCentProkWh;
+        double zweiterTarifEuroProMonat;
         double zweiterTarifCentProkWh;
         double jahresverbrauch; 
-        double gesamtkosten;
+        double gesamtkostenTarifEins;
+        double gesamtkostenTarifZwei;
         double gesamtkostenNachKomma;
+        double EndergebnisInEuro;
         
         double jahresGrundkosten;
         double kostenFürVerbrauch;
         
+        /*
+        Danach werden die variablen mti Werten belegt
+        Hierbei ist zu beachten dass die tarifwerte unterschliedliche
+        Einheiten nutzen also müssen diese später umgewandelt werden
+        Der jahresverbrauch ist in kW angegeben
+        */
         ersterTarifEuroProMonat = 5.75;
-        ersterTarifEuroProkWh = 23.49;
-        zweiterTarifCentProMonat = 9.58;
+        ersterTarifCentProkWh = 23.49;
+        zweiterTarifEuroProMonat = 9.85;
         zweiterTarifCentProkWh = 22.10;
         jahresverbrauch = 3536;
         
+        /*Hier werden die Grundkosten fürs Jahr berechnet
+          Die anschließende Rechnung berechnet die Kosten für den Verbrauch
+          Danach werden diese addiert.
+        */
         jahresGrundkosten = ersterTarifEuroProMonat * 12;
-        
-        kostenFürVerbrauch = ersterTarifEuroProkWh * jahresverbrauch / 100;
-        
-        gesamtkosten = ((jahresGrundkosten + kostenFürVerbrauch) 
+        kostenFürVerbrauch = ersterTarifCentProkWh * jahresverbrauch / 100;
+        gesamtkostenTarifEins = ((jahresGrundkosten + kostenFürVerbrauch) 
                 * 100 + 0.5) / 100;
+        System.out.println("übrerprüfung" + gesamtkostenTarifEins);
         
-        gesamtkostenNachKomma = gesamtkosten * 100 % 100;
+        /*Dies wird für den zweiten tarif wiederholt
+          und als seperates Ergebnis gepeichert
+        */
+        jahresGrundkosten = zweiterTarifEuroProMonat * 12;
+        kostenFürVerbrauch = zweiterTarifCentProkWh * jahresverbrauch / 100;
+        gesamtkostenTarifZwei = ((jahresGrundkosten + kostenFürVerbrauch) 
+                * 100 + 0.5) / 100;
+        System.out.println("übrerprüfung" + gesamtkostenTarifZwei);
         
-        System.out.println((int)gesamtkosten);
-        System.out.println(',');
-        System.out.println((int)gesamtkostenNachKomma);
+        /*Anschließend werden die Ausdrücke miteinander verglichen
+        Der günstigere/niedrigere soll mit println ausgegeben werden
+        Der Vergleich wird mit einem if/else Ausdruck realisiert
+        Um die Stellen nach der Zweiten abzuschneiden wird das Ergebnis 
+        in zwei Ausdrücke gespalten. Einen Vor und Nachkomma-Teil.
+        */
+        if (gesamtkostenTarifEins < gesamtkostenTarifZwei) {
+            gesamtkostenNachKomma = gesamtkostenTarifEins * 100 % 100;
+            EndergebnisInEuro = gesamtkostenTarifEins + gesamtkostenNachKomma;
+                    
+            System.out.println((int)gesamtkostenTarifEins);
+            System.out.println(',');
+            System.out.println((int)gesamtkostenNachKomma);
+        } else {
+            gesamtkostenNachKomma = gesamtkostenTarifZwei * 100 % 100;
+            System.out.println((int)gesamtkostenTarifZwei);
+            System.out.println(',');
+            System.out.println((int)gesamtkostenNachKomma);   
+        }
     }
 }
