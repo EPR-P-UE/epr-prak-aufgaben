@@ -3,7 +3,15 @@
  * Der Sinn dieser Klasse ist es, zusammenhängende farbwerte in Tupel zu
  * "trennen", diese zu Invertieren und jeweils den nächsten farbwert zu 
  * bestimmen.
- * @author robin
+ * Liste der Methoden:
+ * long farbeZusammensetzen
+ * int gebeBlau
+ * int gebeGruen
+ * int gebeRot
+ * lont gibNaechsteFarbe
+ * int invertiere
+ * void main
+ * @author Robin Palkovits
  */
 public class Farben {
 
