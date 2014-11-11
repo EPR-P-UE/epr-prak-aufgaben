@@ -4,11 +4,11 @@
  * "trennen", diese zu Invertieren und jeweils den nächsten farbwert zu 
  * bestimmen.
  * Liste der Methoden:
- * long farbeZusammensetzen
+ * int farbeZusammensetzen
  * int gebeBlau
  * int gebeGruen
  * int gebeRot
- * lont gibNaechsteFarbe
+ * int gibNaechsteFarbe
  * int invertiere
  * void main
  * @author Robin Palkovits
@@ -57,7 +57,7 @@ public class Farben {
      * @return zusammengesetzerFarbwert: Zusammengesetzer Farbwert (rrrgggbbb)
      */
     
-    public static long farbeZusammensetzen(int rot, int gruen, int blau) {
+    public static int farbeZusammensetzen(int rot, int gruen, int blau) {
         return (rot * 1000000) + (gruen * 1000) + (blau * 1);
     }
     
@@ -70,7 +70,13 @@ public class Farben {
     */
 
     public static int invertiere(int farbe) {
-        return (255 - farbe);
+        
+        int rot = 255 - (gebeRot(farbe));
+        int gruen = 255 - (gebeGruen(farbe));
+        int blau = 255 - (gebeBlau(farbe));
+        int invFarbe = farbeZusammensetzen(rot, gruen, blau);
+               
+        return invFarbe;
     }
 
     /** In dieser Methode soll nun immer die nächste Farbe
@@ -83,13 +89,16 @@ public class Farben {
     * @return die neuen 3 Farbtuppel
     */
 
-    public static long gibNaechsteFarbe(int rot, int gruen, int blau) {
+    public static int gibNaechsteFarbe(int farbe) {
         
         /*In dieser Abfolge von Ausdrücken wird versucht zu ermitteln,
         * wann welcher Farbwert addiert werden muss, bzw. ob sich ein 
         * Farbwert noch im Rahmen >=0 <=255 befindet. Anonnsten werden die
         * Bedingungen einfach durchkaskadiert. 
         */
+        int blau = gebeBlau(farbe);
+        int gruen = gebeGruen(farbe);
+        int rot = gebeRot(farbe);
         
         blau = (blau >= 255) ? (0) : (blau + 1);
         
@@ -97,9 +106,11 @@ public class Farben {
                 ? ((gruen >= 255) ? (0) : (gruen + 1))  
                 : (gruen);
         
-        rot = (gruen == 0)
-                ? ((rot >= 255) ? (0) : (rot + 1))
-                : (rot);
+        rot = (blau == 0)
+                ? ((gruen == 0)
+                    ? ((rot >= 255) ? (0) : (rot + 1))
+                    : (rot))
+                : (rot); 
         return farbeZusammensetzen(rot, gruen, blau);
     }
 
@@ -113,51 +124,49 @@ public class Farben {
      */
     public static void main(String [] args) {
     
-        long farbe = 0_0_0;
-        int rot = (int) gebeRot(farbe);
-        int gruen = (int) gebeGruen(farbe);
-        int blau = (int) gebeBlau(farbe);
-    
         /* Hier sollen die Farben zunächst Invertiert werden. Dazu wird
         * die jeweilige Methode aufgerufen.
         */
-        System.out.println(farbeZusammensetzen(invertiere(rot), 
-                            invertiere(gruen), invertiere(blau)));
+        int rot = 0;
+        int gruen = 0;
+        int blau = 0;
+        int farbe = farbeZusammensetzen(rot, gruen, blau);
+        System.out.println(invertiere(farbe));
         
-        farbe = 10_128_255;
-        rot = (int) gebeRot(farbe);
-        gruen = (int) gebeGruen(farbe);
-        blau = (int) gebeBlau(farbe);
-        
-        System.out.println(farbeZusammensetzen(invertiere(rot), 
-                            invertiere(gruen), invertiere(blau)));
+        rot = 10;
+        gruen = 128;
+        blau = 255;
+        farbe = farbeZusammensetzen(rot, gruen, blau);
+        System.out.println(invertiere(farbe));
         
         /* Nun sollen die Farben "addiert" werden. Auch dafür wird die
         *  dementsprechende Methode aufgerufen.
         */
         
-        farbe = 10_11_12;
-        rot = gebeRot(farbe);
-        gruen = gebeGruen(farbe);
-        blau = gebeBlau(farbe);
-        System.out.println(gibNaechsteFarbe(rot, gruen, blau));
+        rot = 10;
+        gruen = 11;
+        blau = 12;
+        farbe = farbeZusammensetzen(rot, gruen, blau);
+        System.out.println(gibNaechsteFarbe(farbe));
 
-        farbe = 10_128_255;
-        rot = gebeRot(farbe);
-        gruen = gebeGruen(farbe);
-        blau = gebeBlau(farbe);
-        System.out.println(gibNaechsteFarbe(rot, gruen, blau));
+        rot = 10;
+        gruen = 128;
+        blau = 255;
+        farbe = farbeZusammensetzen(rot, gruen, blau);
+        System.out.println(gibNaechsteFarbe(farbe));
         
-        farbe = 255_255;
-        rot = gebeRot(farbe);
-        gruen = gebeGruen(farbe);
-        blau = gebeBlau(farbe);
-        System.out.println(gibNaechsteFarbe(rot, gruen, blau));
+        rot = 0;
+        gruen =255;
+        blau = 255;
+        farbe = farbeZusammensetzen(rot, gruen, blau);
+        System.out.println(gibNaechsteFarbe(farbe));
         
-        farbe = 255_255_255;
-        rot = gebeRot(farbe);
-        gruen = gebeGruen(farbe);
-        blau = gebeBlau(farbe);
-        System.out.println(gibNaechsteFarbe(rot, gruen, blau));   
+        rot = 255;
+        gruen = 255;
+        blau = 255;
+        farbe = farbeZusammensetzen(rot, gruen, blau);
+        System.out.println(gibNaechsteFarbe(farbe)); 
+        
+        System.out.println(farbeZusammensetzen(10, 20, 30));
     }
 }
