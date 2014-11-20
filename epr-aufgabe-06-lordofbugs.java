@@ -43,8 +43,8 @@ public class Zahlenspielerei {
         return (zahl % 10 == ziffer
             ? true
             : zahl <= 9
-                ? enthaelt(zahl / 10, ziffer)
-                : false);
+                ? false
+                : enthaelt(zahl / 10, ziffer);
     }
     
     /**
