@@ -1,0 +1,111 @@
+/*
+ * In der folgenden Klasse werden bestimmte angegebene Zeichen
+ * aus einer Zeichenkette herausgefiltert.
+ */
+/**
+ *
+ * @author StR
+ */
+public class Texttrenner {
+    /**
+     * Zeichen die rausgefiltert werden.
+     */
+    private final String zeichen;
+    /**
+     * Zeichenkette die gefiltert wird.
+     */
+    private final String kette;
+    /**
+     * Die jeweils aktuelle Position.
+     */
+    private int position;
+    /**
+     * Konstruktor zur Deklaration.
+     * @param kette die Zeichenkette.
+     * @param zeichen die zu filternden Zeichen.
+     */
+    public Texttrenner(String kette, String zeichen) {
+        this.zeichen = zeichen;
+        this.kette = kette;
+        
+        position = anfangWort();
+    }
+    
+    /**
+     * Ueberprueft ob in der Zeichenkette noch Woerter vorhanden sind.
+     * @return gibt die Ausgabe aus.
+     */
+    public boolean hatNochWoerter() {
+        int zaehler = 0;
+        boolean ausgabe = false;
+        int zeichen1 = position;
+        int zeichen2;
+        
+        while (zeichen1 < kette.length()) {
+            zeichen2 = 0;
+            while (zeichen2 < zeichen.length()) {
+                if (kette.charAt(zeichen1) != zeichen.charAt(zeichen2)) {
+                    zaehler = zaehler + 1;
+                } else {
+                    zaehler = 0;
+                }
+                zeichen2 = zeichen2 + 1;
+            }
+            if (zaehler >= zeichen.length()) {
+                ausgabe = true;
+                zeichen1 = kette.length();
+            }
+            zeichen1 = zeichen1 + 1;
+        }
+        return (ausgabe);
+    }
+    /**
+     * Ausgabe des naechsten gefilterten Wortes.
+     * @return string des naechsten Wortes.
+     */
+    public String gibNaechstesWort() {
+        String string = "";
+        
+        if (!hatNochWoerter()) {
+            string = null;
+        } 
+        while (position <= kette.length() && !istTrennzeichen()
+                && position < kette.length()) {
+            string = string + kette.charAt(position);
+            position = position + 1;
+        }
+        position = anfangWort();
+        return (string);
+    }
+    /**
+     * Ueberprueft ob das Zeichen an der aktuellen Position ein Trennzeichen
+     * ist.
+     * @return boolean
+     */
+    private boolean istTrennzeichen() {
+        int zaehler = 0;
+        boolean ausgabe = false;
+        int zeichen2 = 0;
+        while (zeichen2 < zeichen.length() && position < kette.length()) {
+            if (kette.charAt(position) == zeichen.charAt(zeichen2)) {
+                zaehler = 1;
+            }
+            zeichen2 = zeichen2 + 1;
+        }
+        if (zaehler == 1) {
+            ausgabe = true;
+        }
+        return (ausgabe);
+    }
+    /**
+     * Gibt die Position an, an welcher das naechste Wort beginnt.
+     * @return die Position
+     */ 
+    private int anfangWort() {
+        while (istTrennzeichen() && hatNochWoerter()
+                && position < kette.length()) {
+            position = position + 1;
+        }
+        return (position);
+    }
+}
